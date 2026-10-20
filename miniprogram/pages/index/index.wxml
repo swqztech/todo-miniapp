@@ -1,0 +1,94 @@
+<view class="page-loading" wx:if="{{!ready}}">
+  <text>加载中…</text>
+</view>
+
+<view class="page" wx:else>
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="hero">
+      <text class="brand">INK LIST</text>
+      <text class="date">{{dateText}}</text>
+      <text class="subtitle">写下来，划掉，继续。支持导出 / 导入 / 粘贴 Markdown。</text>
+    </view>
+
+    <view class="composer">
+      <input
+        class="input"
+        value="{{input}}"
+        bindinput="onInput"
+        placeholder="新待办"
+        placeholder-class="input-ph"
+        confirm-type="done"
+        bindconfirm="onAdd"
+      />
+      <view class="btn-primary" bindtap="onAdd">加入</view>
+    </view>
+
+    <view class="toolbar">
+      <view class="toolbar-row">
+        <view
+          class="chip {{filter === 'all' ? 'chip-active' : ''}}"
+          data-filter="all"
+          bindtap="onFilter"
+        >
+          <text>全部</text>
+        </view>
+        <view
+          class="chip {{filter === 'active' ? 'chip-active' : ''}}"
+          data-filter="active"
+          bindtap="onFilter"
+        >
+          <text>未完成</text>
+        </view>
+        <view
+          class="chip {{filter === 'done' ? 'chip-active' : ''}}"
+          data-filter="done"
+          bindtap="onFilter"
+        >
+          <text>已完成</text>
+        </view>
+      </view>
+      <view class="toolbar-row">
+        <view class="chip chip-ghost" bindtap="onExport"><text>导出</text></view>
+        <view class="chip chip-ghost" bindtap="onImport"><text>导入</text></view>
+        <view class="chip chip-ghost" bindtap="onPaste"><text>粘贴导入</text></view>
+      </view>
+    </view>
+
+    <view class="counts-row">
+      <text class="counts">{{counts}}</text>
+      <text class="counts">长按条目可编辑</text>
+    </view>
+
+    <view class="list">
+      <view class="empty" wx:if="{{rows.length === 0}}">
+        <text>还没有待办</text>
+        <text>在上方输入一条，或从剪贴板粘贴导入</text>
+      </view>
+      <view
+        wx:for="{{rows}}"
+        wx:key="storeIndex"
+        class="row {{selectedListIndex === index ? 'row-selected' : ''}}"
+        data-index="{{index}}"
+        bindtap="onSelectRow"
+        bindlongpress="onEditRow"
+      >
+        <view
+          class="check {{item.done ? 'check-done' : ''}}"
+          catchtap="onToggleDone"
+          data-index="{{index}}"
+        >
+          <text wx:if="{{item.done}}">✓</text>
+        </view>
+        <text class="row-text {{item.done ? 'row-text-done' : ''}}">{{item.text}}</text>
+      </view>
+    </view>
+
+    <view class="page-bottom-spacer"></view>
+  </scroll-view>
+
+  <view class="footer">
+    <view class="btn-outline" bindtap="onMoveUp">上移</view>
+    <view class="btn-outline" bindtap="onMoveDown">下移</view>
+    <view class="btn-outline btn-outline-danger" bindtap="onDelete">删除</view>
+  </view>
+</view>

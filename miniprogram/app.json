@@ -1,0 +1,11 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "墨迹清单",
+    "navigationBarBackgroundColor": "#EEF4FB",
+    "backgroundColor": "#F5F8FC"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

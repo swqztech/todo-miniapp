@@ -1,0 +1,10 @@
+{
+  "name": "todo-miniapp",
+  "version": "0.1.0",
+  "description": "墨迹清单 — 原生微信小程序",
+  "scripts": {},
+  "devDependencies": {
+    "miniprogram-api-typings": "^2.8.3-1",
+    "typescript": "^5.4.5"
+  }
+}
